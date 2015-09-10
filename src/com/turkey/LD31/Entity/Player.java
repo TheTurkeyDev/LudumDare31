@@ -29,7 +29,8 @@ public class Player extends Entity
 
 	public Player(GameMain game)
 	{
-		super(Resources.player_Pong, 32, 16, game);
+		super(32, 16, game);
+		super.setImage(Resources.player_Pong);
 		gm = game;
 
 		this.y = 526;

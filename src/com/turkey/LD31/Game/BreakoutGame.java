@@ -48,7 +48,7 @@ public class BreakoutGame
 		walls[1] = topWall;
 		walls[0] = rightWall;
 
-		livesFont = new Font(new ImageSheet(PongGame.class, "/Font/LargeFont.png", 640, 240), 40);
+		livesFont = new Font(new ImageSheet(PongGame.class, "/Font/LargeFont.png"), 40);
 
 		livesText = new Text(livesFont.getStringImage("LIVES"), 0, 200);
 		livesText.hide();

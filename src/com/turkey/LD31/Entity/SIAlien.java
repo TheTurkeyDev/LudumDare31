@@ -30,7 +30,8 @@ public class SIAlien extends Entity
 
 	public SIAlien(GameMain game, Image img, SpaceInvadersGame si, Location loc)
 	{
-		super(img, 32, game);
+		super(32, game);
+		super.setImage(img);
 		gm = game;
 		sigame = si;
 		r = new Random();
@@ -53,9 +54,8 @@ public class SIAlien extends Entity
 			delay++;
 			if(delay%60 == 0)
 			{
-				int rand = r.nextInt(100);
 
-				if(rand == 0)
+				if(0 == r.nextInt(100))
 					fire();
 			}
 		}

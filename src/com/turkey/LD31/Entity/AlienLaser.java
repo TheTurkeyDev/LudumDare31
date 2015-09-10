@@ -18,7 +18,8 @@ public class AlienLaser extends Entity
 	
 	public AlienLaser(GameMain g, SpaceInvadersGame sig)
 	{
-		super(Resources.alienLaser1, 32, g);
+		super(32, g);
+		super.setImage(Resources.alienLaser1);
 		gm = g;
 		sigame = sig;
 		isAlive = true;

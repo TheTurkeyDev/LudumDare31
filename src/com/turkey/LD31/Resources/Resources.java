@@ -34,8 +34,8 @@ public class Resources
 	
 	public static void loadResources()
 	{
-		playerImages = new ImageSheet(Resources.class, "/Images/Player Sprites.png", 160, 160);
-		EntityImages = new ImageSheet(Resources.class, "/Images/EntitySheet.png", 160, 160);
+		playerImages = new ImageSheet(Resources.class, "/Images/Player Sprites.png");
+		EntityImages = new ImageSheet(Resources.class, "/Images/EntitySheet.png");
 		
 		player_Pong = new Image(playerImages, 0, 0, 32, 16);
 		
@@ -61,6 +61,6 @@ public class Resources
 		
 		
 		
-		pong_Board = new Image(new ImageSheet(Resources.class, "/Images/Pong Board.png", 800, 600));
+		pong_Board = new Image(new ImageSheet(Resources.class, "/Images/Pong Board.png"));
 	}
 }

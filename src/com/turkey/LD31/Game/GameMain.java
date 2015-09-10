@@ -3,7 +3,7 @@ package com.turkey.LD31.Game;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
-import VolatiliaAPI.game.Game;
+import VolatiliaAPI.game.GameBase;
 import VolatiliaAPI.graphics.Font;
 import VolatiliaAPI.graphics.ImageSheet;
 import VolatiliaAPI.graphics.Text;
@@ -14,7 +14,7 @@ import VolatiliaAPI.screen.Screen;
 import com.turkey.LD31.Entity.Player;
 import com.turkey.LD31.Game.objects.Brick;
 
-public class GameMain extends Game
+public class GameMain extends GameBase
 {
 	public Player player;
 
@@ -35,25 +35,25 @@ public class GameMain extends Game
 	{
 		super(APIMain.width, APIMain.height);
 
-		state = GameState.Pong;
+		state = GameState.Breakout;
 
 		screen = s;
 		
-		font = new Font(new ImageSheet(PongGame.class, "/Font/LargeFont.png", 640, 240), 40);
+		font = new Font(new ImageSheet(PongGame.class, "/Font/LargeFont.png"), 40);
 
 		pausedText = new Text(font.getStringImage("PAUSED"), 300, 250);
 		pausedText.hide();
 		this.screen.addText(pausedText);
 
 		pong = new PongGame(this);
-		pong.loadPongBoard();
+		//pong.loadPongBoard();
 		breakout = new BreakoutGame(this);
 		spaceInvaders = new SpaceInvadersGame(this);
 
 		player = new Player(this);
 		super.addEntity(player);
 		
-		//nextGame();
+		nextGame();
 	}
 
 	public void render()

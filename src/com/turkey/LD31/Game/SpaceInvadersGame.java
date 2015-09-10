@@ -45,7 +45,7 @@ public class SpaceInvadersGame
 	public SpaceInvadersGame(GameMain game)
 	{
 		gm = game;
-		font = new Font(new ImageSheet(PongGame.class, "/Font/LargeFont.png", 640, 240), 40);
+		font = new Font(new ImageSheet(PongGame.class, "/Font/LargeFont.png"), 40);
 		gameOverText = new Text(font.getStringImage("YOU LOSE"), 250, 250);
 		gameOverText.hide();
 		tfpText = new Text(font.getStringImage("Thanks for playing!"), 50, 250);

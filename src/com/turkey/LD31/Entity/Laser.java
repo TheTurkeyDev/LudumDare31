@@ -17,7 +17,8 @@ public class Laser extends Entity
 	
 	public Laser(GameMain g)
 	{
-		super(Resources.laser, 32, g);
+		super(32, g);
+		super.setImage(Resources.laser);
 		gm = g;
 		isAlive = true;
 	}

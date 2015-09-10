@@ -15,7 +15,8 @@ public class Barrier extends Entity
 	
 	public Barrier(GameMain g)
 	{
-		super(Resources.barrier1, 32, g);
+		super(32, g);
+		super.setImage(Resources.barrier1);
 		gm = g;
 	}
 	

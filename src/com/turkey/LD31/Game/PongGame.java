@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.turkey.LD31.Game.objects.MidLine;
-import com.turkey.LD31.Game.objects.Wall;
-
 import VolatiliaAPI.graphics.Font;
 import VolatiliaAPI.graphics.ImageSheet;
 import VolatiliaAPI.graphics.Text;
 import VolatiliaAPI.graphics.basic.Rectangle;
+
+import com.turkey.LD31.Game.objects.MidLine;
+import com.turkey.LD31.Game.objects.Wall;
 
 public class PongGame
 {
@@ -22,7 +22,7 @@ public class PongGame
 	private Wall topWall;
 	private Wall botWall;
 
-	private Wall[] walls = new  Wall[4];
+	private Wall[] walls = new Wall[4];
 
 	private Font scoreFont;
 
@@ -48,32 +48,32 @@ public class PongGame
 	private boolean stop = false;
 	private boolean unloading = false;
 	private boolean won = false;
-	
+
 	private Random r = new Random();
 
 	public PongGame(GameMain g)
 	{
 		gm = g;
-		scoreFont = new Font(new ImageSheet(PongGame.class, "/Font/LargeFont.png", 640, 240), 40);
+		scoreFont = new Font(new ImageSheet(PongGame.class, "/Font/LargeFont.png"), 40);
 		ball = new Rectangle(ballX, ballY, 10, 10, Color.white);
 		cpu = new Rectangle(cpuX, cpuY, 32, 3, Color.white);
 	}
 
 	public void loadPongBoard()
 	{
-		scoreYou= 0;
-		scoreCpu= 0;
-		
+		scoreYou = 0;
+		scoreCpu = 0;
+
 		gm.addBasicObject(ball);
 		gm.addBasicObject(cpu);
-		
-		leftWall = new Wall(200,50,5,500,Color.white);
-		rightWall = new Wall(600,50,5,500,Color.white);
+
+		leftWall = new Wall(200, 50, 5, 500, Color.white);
+		rightWall = new Wall(600, 50, 5, 500, Color.white);
 		gm.addBasicObject(leftWall);
 		gm.addBasicObject(rightWall);
 
-		topWall = new Wall(200,50,400,5,Color.white);
-		botWall = new Wall(200,550,400,5,Color.white);
+		topWall = new Wall(200, 50, 400, 5, Color.white);
+		botWall = new Wall(200, 550, 400, 5, Color.white);
 		gm.addBasicObject(topWall);
 		gm.addBasicObject(botWall);
 
@@ -82,7 +82,7 @@ public class PongGame
 		walls[2] = topWall;
 		walls[3] = leftWall;
 
-		for(int i = 207; i < 600; i+=20)
+		for(int i = 207; i < 600; i += 20)
 		{
 			MidLine line = new MidLine(i, 300, 10, 5, Color.white);
 			mid.add(line);
@@ -101,9 +101,9 @@ public class PongGame
 
 		gameOverText = new Text(scoreFont.getStringImage(""), 275, 250);
 		gm.screen.addText(gameOverText);
-		
+
 		int xvelo = r.nextInt(5);
-		ballXVel = xvelo-3;
+		ballXVel = xvelo - 3;
 		ballYVel = 2;
 	}
 
@@ -116,14 +116,14 @@ public class PongGame
 		cpuScore.hide();
 		for(int i = 1; i <= walls.length; i++)
 		{
-			Wall w = walls[i-1];
+			Wall w = walls[i - 1];
 			w.moveOffScreen(i);
 		}
-		
+
 		for(int i = 1; i <= mid.size(); i++)
 		{
-			MidLine m = mid.get(i-1);
-			m.moveOffScreen(i%4 + 1);
+			MidLine m = mid.get(i - 1);
+			m.moveOffScreen(i % 4 + 1);
 		}
 	}
 
@@ -157,14 +157,13 @@ public class PongGame
 		ballX = 400;
 		ballY = 300;
 		int xvelo = r.nextInt(5);
-		ballXVel = xvelo-3;
+		ballXVel = xvelo - 3;
 
 		Random r = new Random();
-		int mult = r.nextInt(3)-1;
-		if(mult == 0)
-			mult = 1;
+		int mult = r.nextInt(3) - 1;
+		if(mult == 0) mult = 1;
 
-		ballYVel*=mult;
+		ballYVel *= mult;
 	}
 
 	public void upadate()
@@ -172,19 +171,17 @@ public class PongGame
 		if(unloading)
 		{
 			boolean done = true;
-			
-			for(Wall w: walls)
+
+			for(Wall w : walls)
 			{
 				w.update();
-				if(w.moving)
-					done = false;
+				if(w.moving) done = false;
 			}
-			
-			for(MidLine m: mid)
+
+			for(MidLine m : mid)
 			{
 				m.update();
-				if(m.moving)
-					done = false;
+				if(m.moving) done = false;
 			}
 			if(done && won)
 			{
@@ -206,45 +203,35 @@ public class PongGame
 		}
 		else
 		{
-			if(stop)
-				return;
-			if(cpuX+16 < ballX)
-				cpuX+=cpuSpeed;
-			else if(cpuX+16 > ballX)
-				cpuX-=cpuSpeed;
+			if(stop) return;
+			if(cpuX + 16 < ballX) cpuX += cpuSpeed;
+			else if(cpuX + 16 > ballX) cpuX -= cpuSpeed;
 			cpu.setX(cpuX);
-
 
 			if(gm.isWall(ballX + ballXVel, ballY))
 			{
-				ballXVel*=-1;
+				ballXVel *= -1;
 			}
 
-			ball.setX(ballX+=ballXVel);
-			ball.setY(ballY+=ballYVel);
-			
+			ball.setX(ballX += ballXVel);
+			ball.setY(ballY += ballYVel);
+
 			if((ballY == 526) && (ballX > gm.player.getLocation().getX() - 16 && ballX < gm.player.getLocation().getX() + 32))
 			{
-				ballYVel*=-1;
-				if(ballX > gm.player.getLocation().getX() + 16)
-					ballXVel++;
-				else
-					ballXVel--;
-			}
-			
-			if((ballY == 76) && (ballX > cpuX && ballX < cpuX + 32))
-			{
-				ballYVel*=-1;
-				if(ballX > cpuX + 16)
-					ballXVel++;
-				else
-					ballXVel--;
+				ballYVel *= -1;
+				if(ballX > gm.player.getLocation().getX() + 16) ballXVel++;
+				else ballXVel--;
 			}
 
-			if(ballY > 550)
-				goal(false);
-			else if(ballY < 50)
-				goal(true);
+			if((ballY == 76) && (ballX > cpuX && ballX < cpuX + 32))
+			{
+				ballYVel *= -1;
+				if(ballX > cpuX + 16) ballXVel++;
+				else ballXVel--;
+			}
+
+			if(ballY > 550) goal(false);
+			else if(ballY < 50) goal(true);
 		}
 	}
 
